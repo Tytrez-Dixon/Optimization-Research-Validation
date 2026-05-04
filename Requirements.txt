@@ -1,0 +1,12 @@
+# Core numerical computing
+numpy>=1.24.0
+
+# Plotting and visualization
+matplotlib>=3.7.0
+
+# Deep learning framework
+torch>=2.0.0
+
+# Optional (recommended for notebook experimentation)
+jupyter>=1.0.0
+ipykernel>=6.0.0
