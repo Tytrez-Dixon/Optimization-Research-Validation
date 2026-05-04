@@ -5,7 +5,7 @@ This repository reproduces and extends experiments from the paper:
 ***The Marginal Value of Adaptive Gradient Methods in Machine Learning***
 by Ashia C. Wilson et al. (2017)
 
-The project investigates optimizer generalization behavior by comparing adaptive methods (Adam/AdaGrad) against SGD with momentum on the "Fashion-MNIST","image classification dataset"] benchmark, and reproduces the paper’s synthetic overparameterized construction demonstrating optimizer-dependent implicit bias.
+The project investigates optimizer generalization behavior by comparing adaptive methods (Adam/AdaGrad) against SGD with momentum on the ["Fashion-MNIST","image classification dataset"] benchmark, and reproduces the paper’s synthetic overparameterized construction demonstrating optimizer-dependent implicit bias.
 
 ---
 
