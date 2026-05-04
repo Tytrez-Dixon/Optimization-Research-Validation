@@ -1,0 +1,149 @@
+# ============================================================
+# Global Experiment Configuration
+# ============================================================
+experiment:
+  project_name: optimizer_generalization_reproduction
+  dataset: Fashion-MNIST
+  random_seeds: [0, 1, 2, 3, 4]
+  confidence_interval: 0.95
+
+# ============================================================
+# Dataset Configuration
+# ============================================================
+dataset:
+  train_file: dataset/fashion-mnist_train.csv
+  test_file: dataset/fashion-mnist_test.csv
+  input_dim: 784
+  output_dim: 10
+  train_split: 50000
+  validation_split: 10000
+  normalization: pixel_divide_255
+
+# ============================================================
+# Baseline MLP (NumPy + PyTorch Main Experiment)
+# ============================================================
+mlp_baseline:
+  input_dim: 784
+  hidden_layers: [256]
+  output_dim: 10
+  activation: relu
+  initialization: he
+  dropout: 0.0
+  batch_norm: false
+
+# ============================================================
+# Training Configuration
+# ============================================================
+training:
+  epochs_main: 500
+  epochs_ablation: 200
+  batch_size: 1024
+  loss_function: cross_entropy
+
+# ============================================================
+# Learning Rate Grid Search
+# ============================================================
+grid_search:
+  adam:
+    learning_rates: [0.0001, 0.0003, 0.001, 0.003]
+  sgd:
+    learning_rates: [0.001, 0.01, 0.05, 0.1]
+
+# ============================================================
+# Adam Baseline Hyperparameters
+# ============================================================
+adam:
+  beta1: 0.9
+  beta2: 0.999
+  epsilon: 1.0e-8
+  weight_decay: 0.0
+  amsgrad: false
+
+# ============================================================
+# SGD Baseline Hyperparameters
+# ============================================================
+sgd:
+  momentum: 0.9
+  weight_decay: 0.0
+
+# ============================================================
+# Optimizer Ablation Values
+# ============================================================
+optimizer_ablations:
+  sgd:
+    momentum: [0.0, 0.5, 0.9, 0.99]
+    weight_decay: [0.0, 1.0e-5, 1.0e-4, 1.0e-3]
+
+  adam:
+    beta1: [0.5, 0.8, 0.9, 0.95, 0.99]
+    beta2: [0.9, 0.99, 0.999, 0.9999]
+    epsilon: [1.0e-10, 1.0e-8, 1.0e-6, 1.0e-4]
+    weight_decay: [0.0, 1.0e-5, 1.0e-4, 1.0e-3]
+    amsgrad: [false, true]
+
+# ============================================================
+# MLP Ablation Values
+# ============================================================
+mlp_ablations:
+  hidden_sizes:
+    - [64]
+    - [128]
+    - [256]
+    - [512]
+    - [1024]
+
+  depth_variants:
+    - [256]
+    - [256, 256]
+    - [256, 256, 256]
+    - [256, 256, 256, 256]
+
+  activations:
+    - relu
+    - tanh
+    - gelu
+    - leaky_relu
+
+  initialization:
+    - he
+    - xavier
+    - zeros
+
+  dropout:
+    - 0.0
+    - 0.2
+    - 0.5
+
+  batch_norm:
+    - false
+    - true
+
+  combined_variants:
+    bn_dropout:
+      batch_norm: true
+      dropout: 0.2
+
+    wide_deep:
+      hidden_layers: [512, 512, 256]
+
+# ============================================================
+# Synthetic Section 3 Reproduction
+# ============================================================
+synthetic_section3:
+  dimensions: 50
+  gd:
+    learning_rate: 0.1
+    steps: 5000
+  adagrad:
+    learning_rate: 0.1
+    steps: 5000
+    epsilon: 1.0e-8
+
+# ============================================================
+# Output Directories
+# ============================================================
+outputs:
+  numpy_plots: ./numpy_plots
+  torch_plots: ./torch_plots
+  synthetic_plots: ./synthetic_section3_outputs
+  reports: ./report
